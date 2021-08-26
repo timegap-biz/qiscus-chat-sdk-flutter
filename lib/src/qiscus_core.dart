@@ -700,7 +700,7 @@ class QiscusSDK {
     String? username,
     String? avatarUrl,
     Map<String, dynamic>? extras,
-    required void Function(QAccount, Exception) callback,
+    required void Function(QAccount?, Exception?) callback,
   }) {
     if (userId.isEmpty) {
       throw ArgumentError.value(
@@ -724,7 +724,7 @@ class QiscusSDK {
         .call(params)
         .tap(((_) => _connectMqtt()))
         .then(((it) => it?.second.toModel()))
-        .toCallback2(callback as void Function(Object?, Exception?)?);
+        .toCallback2(callback);
   }
 
   void setUserWithIdentityToken({

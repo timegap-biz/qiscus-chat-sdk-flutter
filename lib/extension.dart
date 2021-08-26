@@ -72,7 +72,7 @@ extension XQiscusSDK on QiscusSDK {
     });
   }
 
-  Future<QAccount> setUser$({
+  Future<QAccount?> setUser$({
     required String userId,
     required String userKey,
     String? username,
