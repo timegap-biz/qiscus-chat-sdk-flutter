@@ -2,11 +2,11 @@ part of qiscus_chat_sdk.usecase.user;
 
 @immutable
 class QUser {
-  final String id, name, avatarUrl;
-  final Map<String, dynamic> extras;
+  final String? id, name, avatarUrl;
+  final Map<String, dynamic>? extras;
 
   QUser({
-    @required this.id,
+    required this.id,
     this.name,
     this.avatarUrl,
     this.extras,
@@ -22,19 +22,19 @@ class QUser {
 }
 
 class User {
-  final Option<String> id, name, avatarUrl;
-  final Option<Map<String, dynamic>> extras;
+  final Option<String?>? id, name, avatarUrl;
+  final Option<Map<String, dynamic>?>? extras;
   User._({
-    @required this.id,
+    required this.id,
     this.name,
     this.avatarUrl,
     this.extras,
   });
   factory User({
-    Option<String> id,
-    Option<String> name,
-    Option<String> avatarUrl,
-    Option<Map<String, dynamic>> extras,
+    Option<String?>? id,
+    Option<String?>? name,
+    Option<String?>? avatarUrl,
+    Option<Map<String, dynamic>?>? extras,
   }) {
     return User._(
       id: id,
@@ -46,19 +46,19 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: Option.of(json['email'] as String),
-      name: Option.of(json['username'] as String),
-      avatarUrl: Option.of(json['avatar_url'] as String),
-      extras: Option.of(json['extras'] as Object).flatMap(decodeJson),
+      id: Option.of(json['email'] as String?),
+      name: Option.of(json['username'] as String?),
+      avatarUrl: Option.of(json['avatar_url'] as String?),
+      extras: Option.of(json['extras'] as Object?).flatMap(decodeJson),
     );
   }
 
   QUser toModel() {
     return QUser(
-        id: id.toNullable(),
-        name: name.toNullable(),
-        avatarUrl: avatarUrl.toNullable(),
-        extras: extras.toNullable(),
+        id: id!.toNullable(),
+        name: name!.toNullable(),
+        avatarUrl: avatarUrl!.toNullable(),
+        extras: extras!.toNullable(),
       );
   }
 }

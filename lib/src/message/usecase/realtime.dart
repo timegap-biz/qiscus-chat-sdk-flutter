@@ -3,10 +3,10 @@ part of qiscus_chat_sdk.usecase.message;
 class RoomIdParams with EquatableMixin {
   const RoomIdParams(this.roomId);
 
-  final int roomId;
+  final int? roomId;
 
   @override
-  List<Object> get props => [roomId];
+  List<Object?> get props => [roomId];
 
   @override
   bool get stringify => true;
@@ -32,7 +32,7 @@ class OnMessageDeleted
 
   factory OnMessageDeleted(IRealtimeService s) =>
       _instance ??= OnMessageDeleted._(s);
-  static OnMessageDeleted _instance;
+  static OnMessageDeleted? _instance;
 
   @override
   Stream<Message> mapStream(_) => repository //
@@ -54,7 +54,7 @@ class OnMessageRead
   final IRealtimeService _service;
 
   factory OnMessageRead(IRealtimeService s) => _instance ??= OnMessageRead._(s);
-  static OnMessageRead _instance;
+  static OnMessageRead? _instance;
 
   @override
   Stream<Message> mapStream(RoomIdParams p) {
@@ -73,10 +73,10 @@ class OnMessageRead
 class TokenParams with EquatableMixin {
   const TokenParams(this.token);
 
-  final String token;
+  final String? token;
 
   @override
-  List<Object> get props => [token];
+  List<Object?> get props => [token];
 
   @override
   bool get stringify => true;
@@ -89,7 +89,7 @@ class OnMessageReceived
       handleData: (message, sink) async {
         sink.add(message);
 
-        var roomId = message.chatRoomId;
+        var roomId = message.chatRoomId!;
         var messageId = message.id;
         var status = QMessageStatus.delivered;
 
@@ -104,7 +104,7 @@ class OnMessageReceived
 
   final IRealtimeService _service;
   final UpdateMessageStatusUseCase _updateMessageStatus;
-  StreamTransformer<Message, Message> _receiveMessage;
+  late StreamTransformer<Message, Message> _receiveMessage;
 
   factory OnMessageReceived(
     IRealtimeService s,
@@ -113,7 +113,7 @@ class OnMessageReceived
     return _instance ??= OnMessageReceived._(s, us);
   }
 
-  static OnMessageReceived _instance;
+  static OnMessageReceived? _instance;
 
   @override
   Stream<Message> mapStream(p) => repository //
@@ -133,7 +133,7 @@ class OnMessageUpdated
     with SubscriptionMixin<IRealtimeService, TokenParams, Message> {
   OnMessageUpdated._(this.repository);
 
-  static OnMessageUpdated _instance;
+  static OnMessageUpdated? _instance;
   @override
   final IRealtimeService repository;
 
@@ -157,7 +157,7 @@ class OnMessageDelivered
 
   factory OnMessageDelivered(IRealtimeService s) =>
       _instance ??= OnMessageDelivered._(s);
-  static OnMessageDelivered _instance;
+  static OnMessageDelivered? _instance;
 
   @override
   Stream<Message> mapStream(RoomIdParams p) {

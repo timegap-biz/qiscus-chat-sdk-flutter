@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/widgets.dart';
 import 'package:equatable/equatable.dart';
-
 import 'src/core.dart';
 import 'src/message/message.dart';
 import 'src/room/room.dart';
@@ -39,9 +37,9 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<QAccount> updateUser$({
-    String name,
-    String avatarUrl,
-    Map<String, dynamic> extras,
+    String? name,
+    String? avatarUrl,
+    Map<String, dynamic>? extras,
   }) async {
     return futurify2((cb) {
       updateUser(
@@ -53,15 +51,15 @@ extension XQiscusSDK on QiscusSDK {
     });
   }
 
-  Future<void> updateMessage$({@required QMessage message}) async {
+  Future<void> updateMessage$({required QMessage message}) async {
     return futurify1((cb) => updateMessage(message: message, callback: cb));
   }
 
   Future<QChatRoom> updateChatRoom$({
-    int roomId,
-    String name,
-    String avatarUrl,
-    Map<String, dynamic> extras,
+    int? roomId,
+    String? name,
+    String? avatarUrl,
+    Map<String, dynamic>? extras,
   }) async {
     return futurify2((cb) {
       updateChatRoom(
@@ -75,11 +73,11 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<QAccount> setUser$({
-    @required String userId,
-    @required String userKey,
-    String username,
-    String avatarUrl,
-    Map<String, dynamic> extras,
+    required String userId,
+    required String userKey,
+    String? username,
+    String? avatarUrl,
+    Map<String, dynamic>? extras,
   }) async {
     return futurify2((cb) {
       setUser(
@@ -94,8 +92,8 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<List<QParticipant>> addParticipants$({
-    @required int roomId,
-    @required List<String> userIds,
+    required int roomId,
+    required List<String> userIds,
   }) async {
     return futurify2((cb) {
       addParticipants(roomId: roomId, userIds: userIds, callback: cb);
@@ -128,15 +126,15 @@ extension XQiscusSDK on QiscusSDK {
     return qiscus;
   }
 
-  Future<QUser> blockUser$({@required String userId}) {
+  Future<QUser> blockUser$({required String userId}) {
     return futurify2((cb) {
       blockUser(userId: userId, callback: cb);
     });
   }
 
   Future<QChatRoom> chatUser$({
-    @required String userId,
-    Map<String, dynamic> extras,
+    required String userId,
+    Map<String, dynamic>? extras,
   }) async {
     return futurify2((cb) {
       chatUser(userId: userId, extras: extras, callback: cb);
@@ -144,8 +142,8 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<bool> registerDeviceToken$({
-    @required String token,
-    bool isDevelopment,
+    required String token,
+    bool? isDevelopment,
   }) async {
     return futurify2((cb) {
       registerDeviceToken(
@@ -157,8 +155,8 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<bool> removeDeviceToken$({
-    @required String token,
-    bool isDevelopment,
+    required String token,
+    bool? isDevelopment,
   }) async {
     return futurify2((cb) {
       removeDeviceToken(
@@ -170,7 +168,7 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<void> clearMessagesByChatRoomId$({
-    @required List<String> roomUniqueIds,
+    required List<String> roomUniqueIds,
   }) async {
     return futurify1((cb) {
       clearMessagesByChatRoomId(roomUniqueIds: roomUniqueIds, callback: cb);
@@ -184,10 +182,10 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<QChatRoom> createChannel$({
-    @required String uniqueId,
-    String name,
-    String avatarUrl,
-    Map<String, dynamic> extras,
+    required String uniqueId,
+    String? name,
+    String? avatarUrl,
+    Map<String, dynamic>? extras,
   }) async {
     return futurify2((cb) {
       createChannel(
@@ -201,10 +199,10 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<QChatRoom> createGroupChat$({
-    @required String name,
-    @required List<String> userIds,
-    String avatarUrl,
-    Map<String, dynamic> extras,
+    required String name,
+    required List<String> userIds,
+    String? avatarUrl,
+    Map<String, dynamic>? extras,
   }) async {
     return futurify2((cb) {
       createGroupChat(
@@ -218,7 +216,7 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<List<QMessage>> deleteMessages$({
-    @required List<String> messageUniqueIds,
+    required List<String> messageUniqueIds,
   }) async {
     return futurify2((cb) {
       deleteMessages(messageUniqueIds: messageUniqueIds, callback: cb);
@@ -226,11 +224,11 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<List<QChatRoom>> getAllChatRooms$({
-    bool showParticipant,
-    bool showRemoved,
-    bool showEmpty,
-    int limit,
-    int page,
+    bool? showParticipant,
+    bool? showRemoved,
+    bool? showEmpty,
+    int? limit,
+    int? page,
   }) async {
     return futurify2((cb) {
       getAllChatRooms(
@@ -245,8 +243,8 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<List<QUser>> getBlockedUsers$({
-    int page,
-    int limit,
+    int? page,
+    int? limit,
   }) async {
     return futurify2((cb) {
       getBlockedUsers(callback: cb, page: page, limit: limit);
@@ -254,7 +252,7 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<QAccount> setUserWithIdentityToken$({
-    @required String token,
+    required String token,
   }) {
     return futurify2((cb) {
       setUserWithIdentityToken(callback: cb, token: token);
@@ -262,17 +260,17 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<QChatRoom> getChannel$({
-    @required String uniqueId,
+    required String uniqueId,
   }) async {
     return futurify2((cb) => getChannel(uniqueId: uniqueId, callback: cb));
   }
 
   Future<List<QChatRoom>> getChatRooms$({
-    List<int> roomIds,
-    List<String> uniqueIds,
-    int page,
-    bool showRemoved,
-    bool showParticipants,
+    List<int>? roomIds,
+    List<String>? uniqueIds,
+    int? page,
+    bool? showRemoved,
+    bool? showParticipants,
   }) async {
     return futurify2((cb) {
       getChatRooms(
@@ -287,7 +285,7 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<QChatRoomWithMessages> getChatRoomWithMessages$({
-    @required int roomId,
+    required int roomId,
   }) async {
     return futurify2((cb) {
       getChatRoomWithMessages(
@@ -303,9 +301,9 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<List<QMessage>> getNextMessagesById$({
-    @required int roomId,
-    @required int messageId,
-    int limit,
+    required int roomId,
+    required int messageId,
+    int? limit,
   }) {
     return futurify2((cb) {
       getNextMessagesById(roomId: roomId, messageId: messageId, callback: cb);
@@ -313,9 +311,9 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<List<QMessage>> getPreviousMessagesById$({
-    @required int roomId,
-    int limit,
-    int messageId,
+    required int roomId,
+    int? limit,
+    int? messageId,
   }) async {
     return futurify2((cb) {
       getPreviousMessagesById(
@@ -334,8 +332,8 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<List<String>> removeParticipants$({
-    @required int roomId,
-    @required List<String> userIds,
+    required int roomId,
+    required List<String> userIds,
   }) async {
     return futurify2((cb) {
       removeParticipants(
@@ -347,7 +345,7 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<QMessage> sendMessage$({
-    @required QMessage message,
+    required QMessage message,
   }) async {
     return futurify2((cb) {
       sendMessage(message: message, callback: cb);
@@ -355,9 +353,9 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<List<QUser>> getUsers$({
-    @deprecated String searchUsername,
-    int page,
-    int limit,
+    @deprecated String? searchUsername,
+    int? page,
+    int? limit,
   }) async {
     return futurify2((cb) {
       getUsers(
@@ -371,8 +369,8 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<void> markAsDelivered$({
-    @required int roomId,
-    @required int messageId,
+    required int roomId,
+    required int messageId,
   }) async {
     return futurify1((cb) {
       markAsDelivered(
@@ -384,8 +382,8 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<void> markAsRead$({
-    @required int roomId,
-    @required int messageId,
+    required int roomId,
+    required int messageId,
   }) async {
     return futurify1((cb) {
       markAsRead(
@@ -397,13 +395,13 @@ extension XQiscusSDK on QiscusSDK {
   }
 
   Future<List<QMessage>> getFileList$({
-    List<int> roomIds,
-    String fileType,
-    List<String> includeExtensions,
-    List<String> excludeExtensions,
-    String userId,
-    int page,
-    int limit,
+    List<int>? roomIds,
+    String? fileType,
+    List<String>? includeExtensions,
+    List<String>? excludeExtensions,
+    String? userId,
+    int? page,
+    int? limit,
   }) async {
     return futurify2((cb) {
       getFileList(
@@ -422,7 +420,7 @@ extension XQiscusSDK on QiscusSDK {
   Stream<int> onChatRoomCleared$() async* {
     yield* streamify((cb, _) {
       return onChatRoomCleared((roomId) {
-        cb(roomId);
+        cb(roomId!);
       });
     });
   }
@@ -501,28 +499,28 @@ extension XQiscusSDK on QiscusSDK {
 class QChatRoomWithMessages {
   const QChatRoomWithMessages(this.room, this.messages);
 
-  final QChatRoom room;
-  final List<QMessage> messages;
+  final QChatRoom? room;
+  final List<QMessage>? messages;
 }
 
 class QUserPresence with EquatableMixin {
-  String userId;
-  bool isOnline;
-  DateTime lastOnline;
+  String? userId;
+  bool? isOnline;
+  DateTime? lastOnline;
 
   @override
-  List<Object> get props => [userId, isOnline, lastOnline];
+  List<Object?> get props => [userId, isOnline, lastOnline];
   @override
   bool get stringify => true;
 }
 
 class QUserTyping with EquatableMixin {
-  String userId;
-  int roomId;
-  bool isTyping;
+  String? userId;
+  int? roomId;
+  bool? isTyping;
 
   @override
-  List<Object> get props => [userId, roomId, isTyping];
+  List<Object?> get props => [userId, roomId, isTyping];
   @override
   bool get stringify => true;
 }

@@ -18,15 +18,15 @@ abstract class IRealtimeService {
   Stream<Message> subscribeMessageUpdated();
 
   Stream<Message> subscribeMessageDelivered({
-    @required int roomId,
+    required int? roomId,
   });
 
   Stream<CustomEvent> subscribeCustomEvent({
-    @required int roomId,
+    required int? roomId,
   });
 
   Stream<Message> subscribeMessageRead({
-    @required int roomId,
+    required int? roomId,
   });
 
   Stream<Message> subscribeMessageDeleted();
@@ -34,37 +34,37 @@ abstract class IRealtimeService {
   Stream<ChatRoom> subscribeRoomCleared();
 
   Stream<Message> subscribeChannelMessage({
-    @required String uniqueId,
+    required String uniqueId,
   });
 
   Stream<UserTyping> subscribeUserTyping({
-    @required int roomId,
+    required int? roomId,
   });
 
   Stream<UserPresence> subscribeUserPresence({
-    @required String userId,
+    required String? userId,
   });
   Stream<Notification> subscribeNotification();
 
   Future<void> publishTyping({
-    @required bool isTyping,
-    @required String userId,
-    @required int roomId,
+    required bool? isTyping,
+    required String? userId,
+    required int? roomId,
   });
 
   Future<void> publishPresence({
-    bool isOnline,
-    DateTime lastSeen,
-    String userId,
+    bool? isOnline,
+    DateTime? lastSeen,
+    String? userId,
   });
 
   Future<void> publishCustomEvent({
-    @required int roomId,
-    @required Map<String, dynamic> payload,
+    required int? roomId,
+    required Map<String, dynamic>? payload,
   });
 
-  Future<void> synchronize([int lastMessageId]);
-  Future<void> synchronizeEvent([String lastEventId]);
+  Future<void> synchronize([int? lastMessageId]);
+  Future<void> synchronizeEvent([String? lastEventId]);
 
   Future<bool> closeConnection();
   Future<bool> openConnection();

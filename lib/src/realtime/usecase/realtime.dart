@@ -5,7 +5,7 @@ class OnConnected with SubscriptionMixin<IRealtimeService, NoParams, void> {
 
   factory OnConnected(IRealtimeService repo) =>
       _instance ??= OnConnected._(repo);
-  static OnConnected _instance;
+  static OnConnected? _instance;
   final IRealtimeService _repo;
 
   @override
@@ -24,7 +24,7 @@ class OnDisconnected with SubscriptionMixin<IRealtimeService, NoParams, void> {
 
   factory OnDisconnected(IRealtimeService repo) =>
       _instance ??= OnDisconnected._(repo);
-  static OnDisconnected _instance;
+  static OnDisconnected? _instance;
 
   @override
   IRealtimeService get repository => _repo;
@@ -43,7 +43,7 @@ class OnReconnecting with SubscriptionMixin<IRealtimeService, NoParams, void> {
 
   factory OnReconnecting(IRealtimeService repo) =>
       _instance ??= OnReconnecting._(repo);
-  static OnReconnecting _instance;
+  static OnReconnecting? _instance;
 
   @override
   IRealtimeService get repository => _repo;

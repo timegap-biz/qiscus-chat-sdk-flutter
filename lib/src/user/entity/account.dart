@@ -1,12 +1,12 @@
 part of qiscus_chat_sdk.usecase.user;
 
 class QAccount {
-  String id, name, avatarUrl;
-  int lastMessageId, lastEventId;
-  Map<String, dynamic> extras;
+  String? id, name, avatarUrl;
+  int? lastMessageId, lastEventId;
+  Map<String, dynamic>? extras;
 
   QAccount({
-    @required this.id,
+    required this.id,
     this.name,
     this.avatarUrl,
     this.lastMessageId,
@@ -34,13 +34,13 @@ class QAccount {
 
 @immutable
 class Account {
-  final String id;
-  final Option<String> name, avatarUrl;
-  final Option<int> lastMessageId, lastEventId;
-  final Option<Map<String, dynamic>> extras;
+  final String? id;
+  final Option<String?>? name, avatarUrl;
+  final Option<int?>? lastMessageId, lastEventId;
+  final Option<Map<String, dynamic>?>? extras;
 
   Account._({
-    @required this.id,
+    required this.id,
     this.name,
     this.avatarUrl,
     this.lastMessageId,
@@ -49,12 +49,12 @@ class Account {
   });
 
   factory Account({
-    @required String id,
-    Option<String> name,
-    Option<String> avatarUrl,
-    Option<int> lastMessageId,
-    Option<int> lastEventId,
-    Option<Map<String, dynamic>> extras,
+    required String? id,
+    Option<String?>? name,
+    Option<String?>? avatarUrl,
+    Option<int?>? lastMessageId,
+    Option<int?>? lastEventId,
+    Option<Map<String, dynamic>?>? extras,
   }) {
     return Account._(
       id: id,
@@ -68,12 +68,12 @@ class Account {
 
   factory Account.fromJson(Map<String, dynamic> json) {
     return Account(
-      id: json['email'] as String,
-      name: Option.of(json['username'] as String),
-      avatarUrl: Option.of(json['avatar_url'] as String),
-      lastMessageId: Option.of(json['last_comment_id'] as int),
-      lastEventId: Option.of(json['last_sync_event_id'] as int),
-      extras: Option.of(json['extras'] as Object).flatMap(decodeJson),
+      id: json['email'] as String?,
+      name: Option.of(json['username'] as String?),
+      avatarUrl: Option.of(json['avatar_url'] as String?),
+      lastMessageId: Option.of(json['last_comment_id'] as int?),
+      lastEventId: Option.of(json['last_sync_event_id'] as int?),
+      extras: Option.of(json['extras'] as Object?).flatMap(decodeJson),
     );
   }
 
@@ -104,11 +104,11 @@ class Account {
   QAccount toModel() {
     return QAccount(
       id: id,
-      name: name.toNullable(),
-      avatarUrl: avatarUrl.toNullable(),
-      extras: extras.toNullable(),
-      lastMessageId: lastMessageId.toNullable(),
-      lastEventId: lastEventId.toNullable(),
+      name: name!.toNullable(),
+      avatarUrl: avatarUrl!.toNullable(),
+      extras: extras!.toNullable(),
+      lastMessageId: lastMessageId!.toNullable(),
+      lastEventId: lastEventId!.toNullable(),
     );
   }
 }

@@ -1,16 +1,16 @@
 part of qiscus_chat_sdk.usecase.user;
 
-class AuthenticateRequest extends IApiRequest<Tuple2<String, Account>> {
+class AuthenticateRequest extends IApiRequest<Tuple2<String?, Account>> {
   AuthenticateRequest({
-    @required this.userId,
-    @required this.userKey,
+    required this.userId,
+    required this.userKey,
     this.name,
     this.avatarUrl,
     this.extras,
   });
 
-  final String userId, userKey, name, avatarUrl;
-  final Map<String, dynamic> extras;
+  final String? userId, userKey, name, avatarUrl;
+  final Map<String, dynamic>? extras;
 
   @override
   String get url => 'login_or_register';
@@ -26,8 +26,8 @@ class AuthenticateRequest extends IApiRequest<Tuple2<String, Account>> {
       };
 
   @override
-  Tuple2<String, Account> format(Map<String, dynamic> json) {
-    var token = json['results']['user']['token'] as String;
+  Tuple2<String?, Account> format(Map<String, dynamic> json) {
+    var token = json['results']['user']['token'] as String?;
     var user = Account //
         .fromJson(json['results']['user'] as Map<String, dynamic>);
 
@@ -36,12 +36,12 @@ class AuthenticateRequest extends IApiRequest<Tuple2<String, Account>> {
 }
 
 class AuthenticateWithTokenRequest
-    extends IApiRequest<Tuple2<String, Account>> {
+    extends IApiRequest<Tuple2<String?, Account>> {
   AuthenticateWithTokenRequest({
-    @required this.identityToken,
+    required this.identityToken,
   });
 
-  final String identityToken;
+  final String? identityToken;
 
   @override
   String get url => 'auth/verify_identity_token';
@@ -53,8 +53,8 @@ class AuthenticateWithTokenRequest
       };
 
   @override
-  Tuple2<String, Account> format(Map<String, dynamic> json) {
-    var token = json['results']['user']['token'] as String;
+  Tuple2<String?, Account> format(Map<String, dynamic> json) {
+    var token = json['results']['user']['token'] as String?;
     var user = Account.fromJson(
       json['results']['user'] as Map<String, dynamic>,
     );
@@ -65,7 +65,7 @@ class AuthenticateWithTokenRequest
 
 class BlockUserRequest extends IApiRequest<User> {
   BlockUserRequest({
-    @required this.userId,
+    required this.userId,
   });
   final String userId;
 
@@ -84,9 +84,9 @@ class BlockUserRequest extends IApiRequest<User> {
 
 class UnblockUserRequest extends IApiRequest<User> {
   UnblockUserRequest({
-    @required this.userId,
+    required this.userId,
   });
-  final String userId;
+  final String? userId;
 
   @override
   String get url => 'unblock_user';
@@ -108,8 +108,8 @@ class GetBlockedUsersRequest extends IApiRequest<List<User>> {
     this.page,
     this.limit,
   });
-  final int page;
-  final int limit;
+  final int? page;
+  final int? limit;
 
   @override
   String get url => 'get_blocked_users';
@@ -131,15 +131,15 @@ class GetBlockedUsersRequest extends IApiRequest<List<User>> {
   }
 }
 
-class GetNonceRequest extends IApiRequest<String> {
+class GetNonceRequest extends IApiRequest<String?> {
   @override
   String get url => 'auth/nonce';
   @override
   IRequestMethod get method => IRequestMethod.post;
 
   @override
-  String format(Map<String, dynamic> json) {
-    return json['results']['nonce'] as String;
+  String? format(Map<String, dynamic> json) {
+    return json['results']['nonce'] as String?;
   }
 }
 
@@ -161,9 +161,9 @@ class GetUserListRequest extends IApiRequest<List<User>> {
     this.page,
     this.limit,
   });
-  final String query;
-  final int page;
-  final int limit;
+  final String? query;
+  final int? page;
+  final int? limit;
 
   @override
   String get url => 'get_user_list';
@@ -187,14 +187,14 @@ class GetUserListRequest extends IApiRequest<List<User>> {
   }
 }
 
-class SetDeviceTokenRequest extends IApiRequest<bool> {
+class SetDeviceTokenRequest extends IApiRequest<bool?> {
   SetDeviceTokenRequest({
-    @required this.token,
+    required this.token,
     this.isDevelopment = false,
     this.platform = 'flutter',
   });
-  final String token;
-  final bool isDevelopment;
+  final String? token;
+  final bool? isDevelopment;
   final String platform;
 
   @override
@@ -211,19 +211,19 @@ class SetDeviceTokenRequest extends IApiRequest<bool> {
       };
 
   @override
-  bool format(Map<String, dynamic> json) {
-    return json['results']['changed'] as bool;
+  bool? format(Map<String, dynamic> json) {
+    return json['results']['changed'] as bool?;
   }
 }
 
-class UnsetDeviceTokenRequest extends IApiRequest<bool> {
+class UnsetDeviceTokenRequest extends IApiRequest<bool?> {
   UnsetDeviceTokenRequest({
-    @required this.token,
+    required this.token,
     this.isDevelopment = false,
     this.platform = 'flutter',
   });
-  final String token;
-  final bool isDevelopment;
+  final String? token;
+  final bool? isDevelopment;
   final String platform;
 
   @override
@@ -240,8 +240,8 @@ class UnsetDeviceTokenRequest extends IApiRequest<bool> {
       };
 
   @override
-  bool format(Map<String, dynamic> json) {
-    return json['results']['success'] as bool;
+  bool? format(Map<String, dynamic> json) {
+    return json['results']['success'] as bool?;
   }
 }
 
@@ -251,9 +251,9 @@ class UpdateUserDataRequest extends IApiRequest<Account> {
     this.avatarUrl,
     this.extras,
   });
-  final String name;
-  final String avatarUrl;
-  final Map<String, dynamic> extras;
+  final String? name;
+  final String? avatarUrl;
+  final Map<String, dynamic>? extras;
 
   @override
   String get url => 'my_profile';

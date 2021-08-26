@@ -1,6 +1,6 @@
 part of qiscus_chat_sdk.core;
 
-Future<void> futurify1(void Function(void Function(Exception)) fn) async {
+Future<void> futurify1(void Function(void Function(Exception?)) fn) async {
   final completer = Completer<void>();
   fn((error) {
     if (error != null) return completer.completeError(error);
@@ -9,7 +9,7 @@ Future<void> futurify1(void Function(void Function(Exception)) fn) async {
   return completer.future;
 }
 
-Future<T> futurify2<T>(void Function(void Function(T, Exception)) fn) async {
+Future<T> futurify2<T>(void Function(void Function(T, Exception?)) fn) async {
   final completer = Completer<T>();
 
   fn((data, error) {
@@ -34,7 +34,7 @@ Stream<Out> streamify<Out>(
   yield* controller.stream;
 }
 
-Option<Map<String, dynamic>> decodeJson(Object json) {
+Option<Map<String, dynamic>?> decodeJson(Object? json) {
   return Option.of(json).flatMap((it) {
     if (it is Map && it.isEmpty) return Option.none();
     if (it is Map && it.isNotEmpty) {
@@ -43,7 +43,7 @@ Option<Map<String, dynamic>> decodeJson(Object json) {
     if (it is String && it.isEmpty) return Option.none();
     if (it is String && it.isNotEmpty) {
       try {
-        var opts = jsonDecode(it) as Map<String, dynamic>;
+        var opts = jsonDecode(it) as Map<String, dynamic>?;
         return Option.some(opts);
       } catch (error) {
         return Option.none();

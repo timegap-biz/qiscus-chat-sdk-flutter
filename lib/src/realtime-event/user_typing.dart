@@ -3,13 +3,13 @@ part of qiscus_chat_sdk.realtime;
 class MqttUserTyping
     implements IMqttReceive<UserTyping>, IMqttPublish<UserTyping> {
   const MqttUserTyping({
-    @required this.roomId,
-    @required this.userId,
+    required this.roomId,
+    required this.userId,
     this.isTyping = true,
   });
   final String roomId;
-  final String userId;
-  final bool isTyping;
+  final String? userId;
+  final bool? isTyping;
 
   @override
   String get topic => TopicBuilder.typing(roomId, userId);

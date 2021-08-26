@@ -4,7 +4,7 @@ class GetNonceUseCase extends UseCase<IUserRepository, String, NoParams> {
   GetNonceUseCase(IUserRepository repository) : super(repository);
 
   @override
-  Future<String> call(NoParams params) {
+  Future<String?> call(NoParams params) {
     return repository.getNonce();
   }
 }

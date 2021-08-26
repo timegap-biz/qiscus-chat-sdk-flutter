@@ -3,13 +3,13 @@ part of qiscus_chat_sdk.realtime;
 class MqttUserPresence
     implements IMqttReceive<UserPresence>, IMqttPublish<UserPresence> {
   const MqttUserPresence({
-    @required this.userId,
+    required this.userId,
     this.lastSeen,
     this.isOnline,
   });
-  final String userId;
-  final DateTime lastSeen;
-  final bool isOnline;
+  final String? userId;
+  final DateTime? lastSeen;
+  final bool? isOnline;
 
   @override
   String get topic => TopicBuilder.presence(userId);
@@ -31,8 +31,8 @@ class MqttUserPresence
 
   @override
   String publish() {
-    var payload = isOnline ? '1' : '0';
-    var millis = lastSeen.millisecondsSinceEpoch;
+    var payload = isOnline! ? '1' : '0';
+    var millis = lastSeen!.millisecondsSinceEpoch;
     return '$payload:$millis';
   }
 }

@@ -2,10 +2,10 @@ part of qiscus_chat_sdk.usecase.realtime;
 
 class SyncServiceImpl implements IRealtimeService {
   SyncServiceImpl({
-    @required this.storage,
-    @required this.interval,
-    @required this.logger,
-    @required this.dio,
+    required this.storage,
+    required this.interval,
+    required this.logger,
+    required this.dio,
   });
 
   final Dio dio;
@@ -60,7 +60,7 @@ class SyncServiceImpl implements IRealtimeService {
   // endregion
 
   @override
-  Stream<Message> subscribeMessageRead({int roomId}) {
+  Stream<Message> subscribeMessageRead({int? roomId}) {
     return _messageRead$.asyncMap((event) => Message(
           id: Option.of(event.messageId),
           uniqueId: Option.of(event.messageUniqueId),
@@ -72,7 +72,7 @@ class SyncServiceImpl implements IRealtimeService {
   }
 
   @override
-  Stream<Message> subscribeMessageReceived({int roomId}) {
+  Stream<Message> subscribeMessageReceived({int? roomId}) {
     return _synchronize(() => storage.lastMessageId);
   }
 
@@ -84,22 +84,22 @@ class SyncServiceImpl implements IRealtimeService {
   }
 
   @override
-  Future<void> synchronize([int lastMessageId]) async {
+  Future<void> synchronize([int? lastMessageId]) async {
     var request = SynchronizeRequest(lastMessageId: lastMessageId);
     var resp = await dio.sendApiRequest(request).then(request.format);
     storage.lastMessageId = resp.first;
   }
 
   @override
-  Future<void> synchronizeEvent([String eventId]) async {
+  Future<void> synchronizeEvent([String? eventId]) async {
     var request =
-        SynchronizeEventRequest(lastEventId: int.tryParse(eventId) ?? 0);
+        SynchronizeEventRequest(lastEventId: int.tryParse(eventId!) ?? 0);
     var resp = await dio.sendApiRequest(request).then(request.format);
     storage.lastEventId = resp.first;
   }
 
   Stream<Message> _synchronize([
-    int Function() getMessageId,
+    int? Function()? getMessageId,
   ]) {
     return _sync$;
   }
@@ -112,7 +112,7 @@ class SyncServiceImpl implements IRealtimeService {
   }
 
   @override
-  Stream<Message> subscribeChannelMessage({String uniqueId}) {
+  Stream<Message> subscribeChannelMessage({String? uniqueId}) {
     return Stream.empty();
   }
 
@@ -132,7 +132,7 @@ class SyncServiceImpl implements IRealtimeService {
   }
 
   @override
-  Stream<Message> subscribeMessageDelivered({int roomId}) {
+  Stream<Message> subscribeMessageDelivered({int? roomId}) {
     return _messageDelivered$.map((event) {
       return Message(
         chatRoomId: Option.of(event.roomId),
@@ -144,7 +144,7 @@ class SyncServiceImpl implements IRealtimeService {
   }
 
   @override
-  Stream<UserPresence> subscribeUserPresence({String userId}) {
+  Stream<UserPresence> subscribeUserPresence({String? userId}) {
     return Stream.empty();
   }
 
@@ -152,22 +152,22 @@ class SyncServiceImpl implements IRealtimeService {
   Future<void> subscribe(String topic) async {}
 
   @override
-  Stream<UserTyping> subscribeUserTyping({String userId, int roomId}) {
+  Stream<UserTyping> subscribeUserTyping({String? userId, int? roomId}) {
     return Stream.empty();
   }
 
   @override
   Future<void> publishPresence({
-    bool isOnline,
-    DateTime lastSeen,
-    String userId,
+    bool? isOnline,
+    DateTime? lastSeen,
+    String? userId,
   }) async {}
 
   @override
   Future<void> publishTyping({
-    bool isTyping,
-    String userId,
-    int roomId,
+    bool? isTyping,
+    String? userId,
+    int? roomId,
   }) async {}
 
   @override
@@ -190,12 +190,12 @@ class SyncServiceImpl implements IRealtimeService {
   Stream<void> onReconnecting() => Stream.empty();
 
   @override
-  Stream<CustomEvent> subscribeCustomEvent({int roomId}) => Stream.empty();
+  Stream<CustomEvent> subscribeCustomEvent({int? roomId}) => Stream.empty();
 
   @override
   Future<void> publishCustomEvent({
-    int roomId,
-    Map<String, dynamic> payload,
+    int? roomId,
+    Map<String, dynamic>? payload,
   }) async {}
 
   @override
@@ -203,8 +203,8 @@ class SyncServiceImpl implements IRealtimeService {
 
 // endregion
 
-  void _saveLastId(Tuple2<int, List<Message>> res) {
-    if (res.first > storage.lastMessageId) {
+  void _saveLastId(Tuple2<int?, List<Message>> res) {
+    if (res.first! > storage.lastMessageId!) {
       storage.lastMessageId = res.first;
     }
   }

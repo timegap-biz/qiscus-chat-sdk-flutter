@@ -1,7 +1,7 @@
 part of qiscus_chat_sdk.usecase.realtime;
 
-class SynchronizeRequest extends IApiRequest<Tuple2<int, List<Message>>> {
-  final int lastMessageId;
+class SynchronizeRequest extends IApiRequest<Tuple2<int?, List<Message>>> {
+  final int? lastMessageId;
 
   SynchronizeRequest({
     this.lastMessageId = 0,
@@ -17,8 +17,8 @@ class SynchronizeRequest extends IApiRequest<Tuple2<int, List<Message>>> {
       };
 
   @override
-  Tuple2<int, List<Message>> format(Map<String, dynamic> json) {
-    var lastId = json['results']['meta']['last_received_comment_id'] as int;
+  Tuple2<int?, List<Message>> format(Map<String, dynamic> json) {
+    var lastId = json['results']['meta']['last_received_comment_id'] as int?;
     var messages = (json['results']['comments'] as List)
         .cast<Map<String, dynamic>>()
         .map((it) => Message.fromJson(it))
@@ -29,7 +29,7 @@ class SynchronizeRequest extends IApiRequest<Tuple2<int, List<Message>>> {
 }
 
 class SynchronizeEventRequest
-    extends IApiRequest<Tuple2<int, List<RealtimeEvent>>> {
+    extends IApiRequest<Tuple2<int?, List<RealtimeEvent>>> {
   final int lastEventId;
   SynchronizeEventRequest({
     this.lastEventId = 0,
@@ -45,9 +45,9 @@ class SynchronizeEventRequest
       };
 
   @override
-  Tuple2<int, List<RealtimeEvent>> format(Map<String, dynamic> json) {
+  Tuple2<int?, List<RealtimeEvent>> format(Map<String, dynamic> json) {
     final data = (json['events'] as List).cast<Map<String, dynamic>>();
-    final id = data.isNotEmpty ? data.last['id'] as int : 0;
+    final id = data.isNotEmpty ? data.last['id'] as int? : 0;
     return Tuple2(id, RealtimeEvent.fromJson(json));
   }
 }

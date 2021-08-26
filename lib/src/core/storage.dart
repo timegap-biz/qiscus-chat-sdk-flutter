@@ -11,15 +11,15 @@ class Storage {
   static const defaultSyncInterval = 5000;
   static const defaultSyncIntervalWhenConnected = 30000;
 
-  String appId;
-  String version;
-  String token;
-  Account currentUser;
-  Map<String, String> customHeaders;
+  String? appId;
+  String? version;
+  String? token;
+  Account? currentUser;
+  Map<String, String>? customHeaders;
 
-  var baseUrl = defaultBaseUrl;
-  var brokerUrl = defaultBrokerUrl;
-  var brokerLbUrl = defaultBrokerLbUrl;
+  String? baseUrl = defaultBaseUrl;
+  String? brokerUrl = defaultBrokerUrl;
+  String? brokerLbUrl = defaultBrokerLbUrl;
   var uploadUrl = defaultUploadUrl;
   var syncInterval = defaultSyncInterval.milliseconds;
   var syncIntervalWhenConnected = defaultSyncIntervalWhenConnected.milliseconds;
@@ -29,13 +29,13 @@ class Storage {
   var accSyncInterval = defaultAccInterval.milliseconds;
   var debugEnabled = false;
   var brokerLbEnabled = true;
-  String get userId => currentUser.id;
-  var lastMessageId = 0;
-  var lastEventId = 0;
-  var enableEventReport = false;
-  var isRealtimeEnabled = true;
-  var isRealtimeCheckEnabled = true;
-  var configExtras = <String, dynamic>{};
+  String? get userId => currentUser!.id;
+  int? lastMessageId = 0;
+  int? lastEventId = 0;
+  bool? enableEventReport = false;
+  bool? isRealtimeEnabled = true;
+  bool? isRealtimeCheckEnabled = true;
+  Map<String, dynamic>? configExtras = <String, dynamic>{};
   var logLevel = QLogLevel.debug;
 
   void clear() {

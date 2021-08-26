@@ -1,11 +1,11 @@
 part of qiscus_chat_sdk.usecase.user;
 
 class QParticipant {
-  final String id, name, avatarUrl;
-  final int lastReadMessageId, lastReceivedMessageId;
-  final Map<String, dynamic> extras;
+  final String? id, name, avatarUrl;
+  final int? lastReadMessageId, lastReceivedMessageId;
+  final Map<String, dynamic>? extras;
   QParticipant({
-    @required this.id,
+    required this.id,
     this.name,
     this.avatarUrl,
     this.lastReadMessageId,
@@ -32,12 +32,12 @@ class QParticipant {
 }
 
 class Participant {
-  final String id;
-  final Option<String> name, avatarUrl;
-  final Option<int> lastReadMessageId, lastReceivedMessageId;
-  final Option<Map<String, dynamic>> extras;
+  final String? id;
+  final Option<String?>? name, avatarUrl;
+  final Option<int?>? lastReadMessageId, lastReceivedMessageId;
+  final Option<Map<String, dynamic>?>? extras;
   Participant._({
-    @required this.id,
+    required this.id,
     this.name,
     this.avatarUrl,
     this.lastReceivedMessageId,
@@ -46,12 +46,12 @@ class Participant {
   });
 
   factory Participant({
-    String id,
-    Option<String> name,
-    Option<String> avatarUrl,
-    Option<int> lastReadMessageId,
-    Option<int> lastReceivedMessageId,
-    Option<Map<String, dynamic>> extras,
+    String? id,
+    Option<String?>? name,
+    Option<String?>? avatarUrl,
+    Option<int?>? lastReadMessageId,
+    Option<int?>? lastReceivedMessageId,
+    Option<Map<String, dynamic>?>? extras,
   }) {
     return Participant._(
       id: id,
@@ -65,24 +65,24 @@ class Participant {
 
   factory Participant.fromJson(Map<String, dynamic> json) {
     return Participant(
-      id: json['email'] as String,
-      name: Option.of(json['username'] as String),
-      avatarUrl: Option.of(json['avatar_url'] as String),
+      id: json['email'] as String?,
+      name: Option.of(json['username'] as String?),
+      avatarUrl: Option.of(json['avatar_url'] as String?),
       lastReceivedMessageId: Option.of(
-        json['last_received_comment_id'] as String,
-      ).map((it) => int.tryParse(it)),
-      lastReadMessageId: Option.of(json['last_read_comment_id'] as String)
-          .map((it) => int.tryParse(it)),
-      extras: Option.of(json['extras'] as Object).flatMap(decodeJson),
+        json['last_received_comment_id'] as String?,
+      ).map((it) => int.tryParse(it!)),
+      lastReadMessageId: Option.of(json['last_read_comment_id'] as String?)
+          .map((it) => int.tryParse(it!)),
+      extras: Option.of(json['extras'] as Object?).flatMap(decodeJson),
     );
   }
 
   QParticipant toModel() => QParticipant(
         id: id,
-        name: name.toNullable(),
-        avatarUrl: avatarUrl.toNullable(),
-        lastReadMessageId: lastReadMessageId.toNullable(),
-        lastReceivedMessageId: lastReceivedMessageId.toNullable(),
-        extras: extras.toNullable(),
+        name: name!.toNullable(),
+        avatarUrl: avatarUrl!.toNullable(),
+        lastReadMessageId: lastReadMessageId!.toNullable(),
+        lastReceivedMessageId: lastReceivedMessageId!.toNullable(),
+        extras: extras!.toNullable(),
       );
 }

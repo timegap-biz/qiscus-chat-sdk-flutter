@@ -6,12 +6,12 @@ class UserRepositoryImpl implements IUserRepository {
   UserRepositoryImpl(this.dio);
 
   @override
-  Future<Tuple2<String, Account>> authenticate({
-    String userId,
-    String userKey,
-    String name,
-    String avatarUrl,
-    Map<String, dynamic> extras,
+  Future<Tuple2<String?, Account>> authenticate({
+    String? userId,
+    String? userKey,
+    String? name,
+    String? avatarUrl,
+    Map<String, dynamic>? extras,
   }) async {
     var request = AuthenticateRequest(
       userId: userId,
@@ -25,8 +25,8 @@ class UserRepositoryImpl implements IUserRepository {
   }
 
   @override
-  Future<Tuple2<String, Account>> authenticateWithToken({
-    String identityToken,
+  Future<Tuple2<String?, Account>> authenticateWithToken({
+    String? identityToken,
   }) async {
     var request = AuthenticateWithTokenRequest(
       identityToken: identityToken,
@@ -35,19 +35,19 @@ class UserRepositoryImpl implements IUserRepository {
   }
 
   @override
-  Future<User> blockUser({@required String userId}) {
+  Future<User> blockUser({required String userId}) {
     var request = BlockUserRequest(userId: userId);
     return dio.sendApiRequest(request).then(request.format);
   }
 
   @override
-  Future<List<User>> getBlockedUser({int page, int limit}) {
+  Future<List<User>> getBlockedUser({int? page, int? limit}) {
     var request = GetBlockedUsersRequest(page: page, limit: limit);
     return dio.sendApiRequest(request).then(request.format);
   }
 
   @override
-  Future<String> getNonce() {
+  Future<String?> getNonce() {
     var request = GetNonceRequest();
     return dio.sendApiRequest(request).then(request.format);
   }
@@ -60,9 +60,9 @@ class UserRepositoryImpl implements IUserRepository {
 
   @override
   Future<List<User>> getUsers({
-    @Deprecated('will be removed on next release') String query,
-    int page,
-    int limit,
+    @Deprecated('will be removed on next release') String? query,
+    int? page,
+    int? limit,
   }) {
     var request = GetUserListRequest(
       query: query,
@@ -73,9 +73,9 @@ class UserRepositoryImpl implements IUserRepository {
   }
 
   @override
-  Future<bool> registerDeviceToken({
-    String token,
-    bool isDevelopment,
+  Future<bool?> registerDeviceToken({
+    String? token,
+    bool? isDevelopment,
   }) {
     var request = SetDeviceTokenRequest(
       token: token,
@@ -85,15 +85,15 @@ class UserRepositoryImpl implements IUserRepository {
   }
 
   @override
-  Future<User> unblockUser({String userId}) {
+  Future<User> unblockUser({String? userId}) {
     var request = UnblockUserRequest(userId: userId);
     return dio.sendApiRequest(request).then(request.format);
   }
 
   @override
-  Future<bool> unregisterDeviceToken({
-    String token,
-    bool isDevelopment,
+  Future<bool?> unregisterDeviceToken({
+    String? token,
+    bool? isDevelopment,
   }) {
     var request = UnsetDeviceTokenRequest(
       token: token,
@@ -104,9 +104,9 @@ class UserRepositoryImpl implements IUserRepository {
 
   @override
   Future<Account> updateUser({
-    String name,
-    String avatarUrl,
-    Map<String, dynamic> extras,
+    String? name,
+    String? avatarUrl,
+    Map<String, dynamic>? extras,
   }) {
     var request = UpdateUserDataRequest(
       name: name,

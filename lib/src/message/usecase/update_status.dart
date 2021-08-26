@@ -3,7 +3,7 @@ part of qiscus_chat_sdk.usecase.message;
 class UpdateStatusParams {
   const UpdateStatusParams(this.roomId, this.messageId, this.status);
 
-  final int roomId, messageId;
+  final int? roomId, messageId;
   final QMessageStatus status;
 }
 

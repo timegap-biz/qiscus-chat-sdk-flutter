@@ -2,7 +2,6 @@ library qiscus_chat_sdk.realtime;
 
 import 'dart:convert';
 
-import 'package:flutter/widgets.dart' hide Notification, Interval;
 import 'package:mqtt_client/mqtt_client.dart';
 
 import '../custom_event/custom_event.dart';
@@ -46,8 +45,8 @@ extension IMqttReceiveX on MqttClient {
     } else {
       yield* MqttClientTopicFilter(topic, updates)
           .updates
-          ?.expand((events) => events)
-          ?.asyncMap((event) {
+          .expand((events) => events)
+          .asyncMap((event) {
         var p = event.payload as MqttPublishMessage;
         var m = p.payload.message;
         var payload = utf8.decode(m);
@@ -67,7 +66,7 @@ extension IMqttReceiveX on MqttClient {
   Future<void> sendEvent<I>(IMqttPublish<I> handler) async {
     await isConnected$;
     var payload = MqttClientPayloadBuilder()..addString(handler.publish());
-    publishMessage(handler.topic, MqttQos.atLeastOnce, payload.payload);
+    publishMessage(handler.topic, MqttQos.atLeastOnce, payload.payload!);
   }
 
   Future<bool> get isConnected$ {
@@ -78,7 +77,7 @@ extension IMqttReceiveX on MqttClient {
   }
 
   bool get isConnected {
-    return connectionStatus.state == MqttConnectionState.connected;
+    return connectionStatus!.state == MqttConnectionState.connected;
   }
 
   void subscribe$(String topic) async {

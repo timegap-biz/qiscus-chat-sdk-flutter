@@ -7,10 +7,10 @@ class MessageRepositoryImpl implements MessageRepository {
 
   @override
   Future<List<Message>> getMessages(
-    int roomId,
-    int lastMessageId, {
-    bool after = false,
-    int limit = 20,
+    int? roomId,
+    int? lastMessageId, {
+    bool? after = false,
+    int? limit = 20,
   }) async {
     var request = GetMessagesRequest(
       roomId: roomId,
@@ -23,12 +23,12 @@ class MessageRepositoryImpl implements MessageRepository {
 
   @override
   Future<Message> sendMessage(
-    int roomId,
-    String message, {
+    int? roomId,
+    String? message, {
     String type = 'text',
-    String uniqueId,
-    Map<String, dynamic> extras,
-    Map<String, dynamic> payload,
+    String? uniqueId,
+    Map<String, dynamic>? extras,
+    Map<String, dynamic>? payload,
   }) async {
     var request = SendMessageRequest(
       roomId: roomId,
@@ -43,9 +43,9 @@ class MessageRepositoryImpl implements MessageRepository {
 
   @override
   Future<void> updateStatus({
-    @required int roomId,
-    int readId = 0,
-    int deliveredId = 0,
+    int? roomId,
+    int? readId = 0,
+    int? deliveredId = 0,
   }) {
     var request = UpdateMessageStatusRequest(
       roomId: roomId,
@@ -56,14 +56,14 @@ class MessageRepositoryImpl implements MessageRepository {
   }
 
   @override
-  Future<Message> updateMessage({@required QMessage message}) {
+  Future<Message> updateMessage({required QMessage message}) {
     var request = UpdateMessageRequest(message: message);
     return _dio.sendApiRequest(request).then(request.format);
   }
 
   @override
   Future<List<Message>> deleteMessages({
-    @required List<String> uniqueIds,
+    required List<String> uniqueIds,
     bool isForEveryone = true,
     bool isHard = true,
   }) {
@@ -77,14 +77,14 @@ class MessageRepositoryImpl implements MessageRepository {
 
   @override
   Future<Iterable<QMessage>> getFileList({
-    String query,
-    String userId,
-    List<int> roomIds,
-    String fileType,
-    List<String> includeExtensions,
-    List<String> excludeExtensions,
-    int page,
-    int limit,
+    String? query,
+    String? userId,
+    List<int>? roomIds,
+    String? fileType,
+    List<String>? includeExtensions,
+    List<String>? excludeExtensions,
+    int? page,
+    int? limit,
   }) {
     var request = FileListRequest(
       query: query,

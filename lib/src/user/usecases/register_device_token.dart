@@ -3,7 +3,7 @@ part of qiscus_chat_sdk.usecase.user;
 @immutable
 class DeviceTokenParams {
   final String token;
-  final bool isDevelopment;
+  final bool? isDevelopment;
   const DeviceTokenParams(this.token, [this.isDevelopment = false]);
 }
 
@@ -12,7 +12,7 @@ class RegisterDeviceTokenUseCase
   RegisterDeviceTokenUseCase(IUserRepository repository) : super(repository);
 
   @override
-  Future<bool> call(DeviceTokenParams p) {
+  Future<bool?> call(DeviceTokenParams p) {
     return repository.registerDeviceToken(
       token: p.token,
       isDevelopment: p.isDevelopment,
@@ -25,7 +25,7 @@ class UnregisterDeviceTokenUseCase
   UnregisterDeviceTokenUseCase(IUserRepository repository) : super(repository);
 
   @override
-  Future<bool> call(DeviceTokenParams p) {
+  Future<bool?> call(DeviceTokenParams p) {
     return repository.unregisterDeviceToken(
       token: p.token,
       isDevelopment: p.isDevelopment,

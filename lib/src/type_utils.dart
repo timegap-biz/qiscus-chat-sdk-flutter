@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:sealed_unions/sealed_unions.dart';
 
-class Option<T extends Object> extends Union2Impl<Some<T>, None> {
+class Option<T extends Object?> extends Union2Impl<Some<T>, None> {
   static Doublet<Some<T>, None> _optionFactory<T>() => Doublet<Some<T>, None>();
 
   Option._(Union2<Some<T>, None> union) : super(union);
@@ -39,7 +39,7 @@ class Option<T extends Object> extends Union2Impl<Some<T>, None> {
     );
   }
 
-  T getOrElse(T Function() orElse) {
+  T? getOrElse(T? Function() orElse) {
     return join(
       (some) => some.value,
       (_) => orElse(),
@@ -50,7 +50,7 @@ class Option<T extends Object> extends Union2Impl<Some<T>, None> {
     return join((s) => onSome(s.value), (_) => onNone());
   }
 
-  T toNullable() {
+  T? toNullable() {
     return getOrElse(() => null);
   }
 
@@ -65,7 +65,7 @@ class Some<T> with EquatableMixin {
   final T value;
 
   @override
-  List<Object> get props => [value];
+  List<Object?> get props => [value];
 }
 
 
@@ -83,7 +83,7 @@ class Tuple2<T1, T2> with EquatableMixin {
   final T2 second;
 
   @override
-  List<Object> get props => [first, second];
+  List<Object?> get props => [first, second];
 
   @override
   String toString() {

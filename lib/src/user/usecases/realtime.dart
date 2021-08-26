@@ -6,7 +6,7 @@ class TypingUseCase extends UseCase<IRealtimeService, void, UserTyping>
 
   factory TypingUseCase(IRealtimeService repo) =>
       _instance ??= TypingUseCase._(repo);
-  static TypingUseCase _instance;
+  static TypingUseCase? _instance;
 
   @override
   Future<void> call(UserTyping params) {
@@ -36,7 +36,7 @@ class TypingUseCase extends UseCase<IRealtimeService, void, UserTyping>
 class PresenceUseCase extends UseCase<IRealtimeService, void, UserPresence>
     with SubscriptionMixin<IRealtimeService, UserPresence, UserPresence> {
   PresenceUseCase._(IRealtimeService service) : super(service);
-  static PresenceUseCase _instance;
+  static PresenceUseCase? _instance;
 
   factory PresenceUseCase(IRealtimeService service) =>
       _instance ??= PresenceUseCase._(service);

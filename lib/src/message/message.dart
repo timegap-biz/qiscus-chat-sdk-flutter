@@ -4,7 +4,6 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/widgets.dart';
 
 import '../core.dart';
 import '../type_utils.dart';

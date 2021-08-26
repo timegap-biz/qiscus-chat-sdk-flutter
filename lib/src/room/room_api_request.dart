@@ -2,12 +2,12 @@ part of qiscus_chat_sdk.usecase.room;
 
 class ChatTargetRequest extends IApiRequest<ChatRoom> {
   ChatTargetRequest({
-    @required this.userId,
+    required this.userId,
     this.extras,
   });
 
   final String userId;
-  final Map<String, dynamic> extras;
+  final Map<String, dynamic>? extras;
 
   @override
   String get url => 'get_or_create_room_with_target';
@@ -29,7 +29,7 @@ class ChatTargetRequest extends IApiRequest<ChatRoom> {
 
 class GetRoomByIdRequest extends IApiRequest<Tuple2<ChatRoom, List<Message>>> {
   GetRoomByIdRequest({
-    @required this.roomId,
+    required this.roomId,
   });
 
   final int roomId;
@@ -58,8 +58,8 @@ class GetRoomByIdRequest extends IApiRequest<Tuple2<ChatRoom, List<Message>>> {
 
 class AddParticipantRequest extends IApiRequest<List<Participant>> {
   AddParticipantRequest({
-    @required this.roomId,
-    @required this.userIds,
+    required this.roomId,
+    required this.userIds,
   });
 
   final int roomId;
@@ -90,8 +90,8 @@ class AddParticipantRequest extends IApiRequest<List<Participant>> {
 
 class RemoveParticipantRequest extends IApiRequest<List<String>> {
   RemoveParticipantRequest({
-    @required this.roomId,
-    @required this.userIds,
+    required this.roomId,
+    required this.userIds,
   });
 
   final int roomId;
@@ -120,16 +120,16 @@ class RemoveParticipantRequest extends IApiRequest<List<String>> {
 
 class GetParticipantRequest extends IApiRequest<List<Participant>> {
   GetParticipantRequest({
-    @required this.roomUniqueId,
+    required this.roomUniqueId,
     this.page,
     this.limit,
     this.sorting,
   });
 
   final String roomUniqueId;
-  final int page;
-  final int limit;
-  final String sorting;
+  final int? page;
+  final int? limit;
+  final String? sorting;
 
   @override
   String get url => 'room_participants';
@@ -165,11 +165,11 @@ class GetAllRoomRequest extends IApiRequest<List<ChatRoom>> {
     this.page,
   });
 
-  final bool withParticipants;
-  final bool withEmptyRoom;
-  final bool withRemovedRoom;
-  final int limit;
-  final int page;
+  final bool? withParticipants;
+  final bool? withEmptyRoom;
+  final bool? withRemovedRoom;
+  final int? limit;
+  final int? page;
 
   @override
   String get url => 'user_rooms';
@@ -197,16 +197,16 @@ class GetAllRoomRequest extends IApiRequest<List<ChatRoom>> {
 
 class GetOrCreateChannelRequest extends IApiRequest<ChatRoom> {
   GetOrCreateChannelRequest({
-    @required this.uniqueId,
+    required this.uniqueId,
     this.name,
     this.avatarUrl,
     this.extras,
   });
 
-  final String uniqueId;
-  final String name;
-  final String avatarUrl;
-  final Map<String, dynamic> extras;
+  final String? uniqueId;
+  final String? name;
+  final String? avatarUrl;
+  final Map<String, dynamic>? extras;
 
   @override
   String get url => 'get_or_create_room_with_unique_id';
@@ -230,17 +230,17 @@ class GetOrCreateChannelRequest extends IApiRequest<ChatRoom> {
 
 class CreateGroupRequest extends IApiRequest<ChatRoom> {
   CreateGroupRequest({
-    @required this.name,
-    @required this.userIds,
+    required this.name,
+    required this.userIds,
     this.avatarUrl,
     this.extras,
   });
 
-  final String name;
-  final List<String> userIds;
+  final String? name;
+  final List<String>? userIds;
 
-  final String avatarUrl;
-  final Map<String, dynamic> extras;
+  final String? avatarUrl;
+  final Map<String, dynamic>? extras;
 
   @override
   String get url => 'create_room';
@@ -264,7 +264,7 @@ class CreateGroupRequest extends IApiRequest<ChatRoom> {
 
 class ClearMessagesRequest extends IApiRequest<void> {
   ClearMessagesRequest({
-    @required this.roomUniqueIds,
+    required this.roomUniqueIds,
   });
 
   final List<String> roomUniqueIds;
@@ -293,11 +293,11 @@ class GetRoomInfoRequest extends IApiRequest<List<ChatRoom>> {
     this.page,
   });
 
-  final List<int> roomIds;
-  final List<String> uniqueIds;
-  final bool withParticipants;
-  final bool withRemoved;
-  final int page;
+  final List<int>? roomIds;
+  final List<String>? uniqueIds;
+  final bool? withParticipants;
+  final bool? withRemoved;
+  final int? page;
 
   @override
   String get url => 'rooms_info';
@@ -307,7 +307,7 @@ class GetRoomInfoRequest extends IApiRequest<List<ChatRoom>> {
 
   @override
   Map<String, dynamic> get body => <String, dynamic>{
-        'room_id': roomIds.map((e) => e.toString()).toList(),
+        'room_id': roomIds!.map((e) => e.toString()).toList(),
         'room_unique_id': uniqueIds,
         'show_participants': withParticipants,
         'show_removed': withRemoved,
@@ -324,7 +324,7 @@ class GetRoomInfoRequest extends IApiRequest<List<ChatRoom>> {
   }
 }
 
-class GetTotalUnreadCountRequest extends IApiRequest<int> {
+class GetTotalUnreadCountRequest extends IApiRequest<int?> {
   @override
   String get url => 'total_unread_count';
 
@@ -332,23 +332,23 @@ class GetTotalUnreadCountRequest extends IApiRequest<int> {
   IRequestMethod get method => IRequestMethod.get;
 
   @override
-  int format(Map<String, dynamic> json) {
-    return json['results']['total_unread_count'] as int;
+  int? format(Map<String, dynamic> json) {
+    return json['results']['total_unread_count'] as int?;
   }
 }
 
 class UpdateRoomRequest extends IApiRequest<ChatRoom> {
   UpdateRoomRequest({
-    @required this.roomId,
+    required this.roomId,
     this.name,
     this.avatarUrl,
     this.extras,
   });
 
   final String roomId;
-  final String name;
-  final String avatarUrl;
-  final Map<String, dynamic> extras;
+  final String? name;
+  final String? avatarUrl;
+  final Map<String, dynamic>? extras;
 
   @override
   String get url => 'update_room';

@@ -5,14 +5,14 @@ class RoomRepositoryImpl implements IRoomRepository {
   final Storage storage;
 
   const RoomRepositoryImpl({
-    @required this.dio,
-    @required this.storage,
+    required this.dio,
+    required this.storage,
   });
 
   @override
   Future<ChatRoom> getRoomWithUserId({
-    @required String userId,
-    Map<String, dynamic> extras,
+    required String userId,
+    Map<String, dynamic>? extras,
   }) async {
     await storage.authenticated$;
     var request = ChatTargetRequest(
@@ -62,9 +62,9 @@ class RoomRepositoryImpl implements IRoomRepository {
   @override
   Future<List<Participant>> getParticipants(
     String uniqueId, {
-    int page,
-    int limit,
-    String sorting,
+    int? page,
+    int? limit,
+    String? sorting,
   }) async {
     await storage.authenticated$;
     var request = GetParticipantRequest(
@@ -78,11 +78,11 @@ class RoomRepositoryImpl implements IRoomRepository {
 
   @override
   Future<List<ChatRoom>> getAllRooms({
-    bool withParticipants,
-    bool withEmptyRoom,
-    bool withRemovedRoom,
-    int limit,
-    int page,
+    bool? withParticipants,
+    bool? withEmptyRoom,
+    bool? withRemovedRoom,
+    int? limit,
+    int? page,
   }) async {
     await storage.authenticated$;
     var request = GetAllRoomRequest(
@@ -98,10 +98,10 @@ class RoomRepositoryImpl implements IRoomRepository {
 
   @override
   Future<ChatRoom> getOrCreateChannel({
-    String uniqueId,
-    String name,
-    String avatarUrl,
-    Map<String, dynamic> options,
+    String? uniqueId,
+    String? name,
+    String? avatarUrl,
+    Map<String, dynamic>? options,
   }) async {
     await storage.authenticated$;
     var request = GetOrCreateChannelRequest(
@@ -115,10 +115,10 @@ class RoomRepositoryImpl implements IRoomRepository {
 
   @override
   Future<ChatRoom> createGroup({
-    String name,
-    List<String> userIds,
-    String avatarUrl,
-    Map<String, dynamic> extras,
+    String? name,
+    List<String>? userIds,
+    String? avatarUrl,
+    Map<String, dynamic>? extras,
   }) async {
     await storage.authenticated$;
     var request = CreateGroupRequest(
@@ -132,7 +132,7 @@ class RoomRepositoryImpl implements IRoomRepository {
 
   @override
   Future<void> clearMessages({
-    @required List<String> uniqueIds,
+    required List<String> uniqueIds,
   }) async {
     await storage.authenticated$;
     var request = ClearMessagesRequest(roomUniqueIds: uniqueIds);
@@ -141,11 +141,11 @@ class RoomRepositoryImpl implements IRoomRepository {
 
   @override
   Future<List<ChatRoom>> getRoomInfo({
-    List<int> roomIds,
-    List<String> uniqueIds,
-    bool withParticipants,
-    bool withRemoved,
-    int page,
+    List<int>? roomIds,
+    List<String>? uniqueIds,
+    bool? withParticipants,
+    bool? withRemoved,
+    int? page,
   }) async {
     await storage.authenticated$;
     var r = GetRoomInfoRequest(
@@ -159,7 +159,7 @@ class RoomRepositoryImpl implements IRoomRepository {
   }
 
   @override
-  Future<int> getTotalUnreadCount() async {
+  Future<int?> getTotalUnreadCount() async {
     await storage.authenticated$;
     var r = GetTotalUnreadCountRequest();
     return dio.sendApiRequest(r).then(r.format);
@@ -167,10 +167,10 @@ class RoomRepositoryImpl implements IRoomRepository {
 
   @override
   Future<ChatRoom> updateRoom({
-    @required int roomId,
-    String name,
-    String avatarUrl,
-    Map<String, dynamic> extras,
+    required int? roomId,
+    String? name,
+    String? avatarUrl,
+    Map<String, dynamic>? extras,
   }) async {
     await storage.authenticated$;
     var r = UpdateRoomRequest(

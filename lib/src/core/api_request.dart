@@ -18,9 +18,9 @@ abstract class IApiRequest<T> {
   String toString() {
     var request = this;
     var body = request.body;
-    body?.removeWhere((key, dynamic value) => value == null);
+    body.removeWhere((key, dynamic value) => value == null);
     var params = request.params;
-    params?.removeWhere((key, dynamic value) => value == null);
+    params.removeWhere((key, dynamic value) => value == null);
 
     return ('IApiRequest<$T>('
         '  url="$url",'
@@ -56,9 +56,9 @@ extension DioXRequest on Dio {
   Future<Output> call<Output>(
     IApiRequest<Output> r,
   ) async {
-    var body = (r.body ?? <String, dynamic>{})
+    var body = (r.body)
       ..removeWhere((_, dynamic v) => v == null);
-    var params = (r.params ?? <String, dynamic>{})
+    var params = (r.params)
       ..removeWhere((_, dynamic v) => v == null);
 
     return request<Map<String, dynamic>>(
@@ -66,16 +66,16 @@ extension DioXRequest on Dio {
       options: Options(method: r.method.asString),
       data: body,
       queryParameters: params,
-    ).then((it) => it.data).then((it) => r.format(it));
+    ).then((it) => it.data).then((it) => r.format(it!));
   }
 
   Future<Output> sendApiRequest<Output extends Map<String, dynamic>>(
     IApiRequest<dynamic> request,
   ) async {
     var body = request.body;
-    body?.removeWhere((key, dynamic value) => value == null);
+    body.removeWhere((key, dynamic value) => value == null);
     var params = request.params;
-    params?.removeWhere((key, dynamic value) => value == null);
+    params.removeWhere((key, dynamic value) => value == null);
 
     return this
         .request<Output>(
@@ -84,6 +84,6 @@ extension DioXRequest on Dio {
           data: body.isNotEmpty ? body : null,
           queryParameters: params.isNotEmpty ? params : null,
         )
-        .then((it) => it.data);
+        .then((it) => it.data!);
   }
 }

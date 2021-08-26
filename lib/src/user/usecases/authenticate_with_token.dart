@@ -14,9 +14,9 @@ class AuthenticateUserWithTokenUseCase
 
     _s.currentUser = it.second;
     _s.token = it.first;
-    _s.lastEventId = it.second.lastEventId.getOrElse(() => _s.lastEventId);
+    _s.lastEventId = it.second.lastEventId!.getOrElse(() => _s.lastEventId);
     _s.lastMessageId =
-        it.second.lastMessageId.getOrElse(() => _s.lastMessageId);
+        it.second.lastMessageId!.getOrElse(() => _s.lastMessageId);
     return it.second;
   }
 }
