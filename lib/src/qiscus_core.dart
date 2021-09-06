@@ -138,13 +138,13 @@ class QiscusSDK {
   void chatUser({
     required String userId,
     Map<String, dynamic>? extras,
-    required void Function(QChatRoom, Exception) callback,
+    required void Function(QChatRoom?, Exception?) callback,
   }) {
     Future.sync(() async {
       await _authenticated;
       var res = await _room$$.getRoomWithUserId(userId: userId, extras: extras);
       return res.toModel();
-    }).toCallback2(callback as void Function(QChatRoom?, Exception?)?);
+    }).toCallback2(callback);
   }
 
   void clearMessagesByChatRoomId({

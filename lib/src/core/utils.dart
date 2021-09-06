@@ -9,7 +9,7 @@ Future<void> futurify1(void Function(void Function(Exception?)) fn) async {
   return completer.future;
 }
 
-Future<T> futurify2<T>(void Function(void Function(T, Exception?)) fn) async {
+Future<T> futurify2<T>(void Function(void Function(T?, Exception?)) fn) async {
   final completer = Completer<T>();
 
   fn((data, error) {
