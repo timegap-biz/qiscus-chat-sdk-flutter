@@ -223,7 +223,7 @@ extension XQiscusSDK on QiscusSDK {
     });
   }
 
-  Future<List<QChatRoom>> getAllChatRooms$({
+  Future<List<QChatRoom?>> getAllChatRooms$({
     bool? showParticipant,
     bool? showRemoved,
     bool? showEmpty,
