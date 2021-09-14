@@ -246,7 +246,7 @@ class QiscusSDK {
     bool? showEmpty,
     int? limit,
     int? page,
-    required void Function(List<QChatRoom?>, Exception?) callback,
+    required void Function(List<QChatRoom>?, Exception?) callback,
   }) {
     Future.sync(() async {
       await _authenticated;
