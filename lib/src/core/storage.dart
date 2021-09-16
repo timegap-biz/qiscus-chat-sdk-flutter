@@ -46,11 +46,15 @@ class Storage {
 }
 
 extension StorageX on Storage {
-  Future<bool> get authenticated$ =>
-      Stream<bool>.periodic(const Duration(milliseconds: 130))
-          .map((_) => currentUser != null)
-          .distinct()
-          .firstWhere((it) => it == true);
+  Future<bool> get authenticated$ async {
+    var resultValue = false;
+    Stream<bool>.periodic(const Duration(milliseconds: 130), (value) {
+      resultValue = currentUser != null;
+      return resultValue;
+    });
+    return resultValue;
+  }
+
 
   AppConfig get appConfig => AppConfig(
         baseUrl: Option.some(baseUrl),
